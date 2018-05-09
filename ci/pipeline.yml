@@ -13,14 +13,13 @@ jobs:
   - get: source-code
     trigger: true
   - task: list-files
-    privileged: true
     file: source-code/ci/tasks/ls.yml
 
 - name: unit-test
   serial: true
   plan:
   - task: unit-test
-    privileged: true
+    passed: list
     file: source-code/ci/tasks/test.yml
 
 
@@ -28,12 +27,12 @@ jobs:
   serial: true
   plan:
   - task: package
-    privileged: true
+    passed: unit-test
     file: source-code/ci/tasks/package.yml
 
 - name: deploy
   serial: true
   plan:
   - task: deploy
-    privileged: true
+    passed: package
     file: source-code/ci/tasks/deploy.yml
