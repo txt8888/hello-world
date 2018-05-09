@@ -7,29 +7,10 @@ resources:
     branch: master
 
 jobs:
-- name: list-files
-  plan:
-  - get: source-code
-    trigger: true
-  - task: list-files
-    file: source-code/ci/tasks/ls.yml
-
-
 - name: unit-test
+  serial: true
   plan:
   - get: source-code
     trigger: true
-    passed: [ list-files ]
-  - task: chmod
-    config:
-          platform: linux
-          image_resource:
-            type: docker-image
-            source: {repository: busybox}
-          inputs:
-          - name: source-code
-          run:
-            path: chmod
-            args: [ -x, source-code/ci/task/*.sh ]
   - task: unit-test
     file: source-code/ci/tasks/test.yml
