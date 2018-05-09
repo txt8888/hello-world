@@ -7,16 +7,34 @@ resources:
     branch: master
 
 jobs:
-- name: package
+- name: unit-test
   plan:
   - get: source-code
     trigger: true
   - task: unit-test
     privileged: true
     file: source-code/ci/tasks/test.yml
+
+- name: list
+  plan:
+  - get: source-code
+    trigger: true
+  - task: list-files
+    privileged: true
+    file: source-code/ci/tasks/ls.yml
+
+- name: package
+  plan:
+  - get: source-code
+    trigger: true
   - task: package
     privileged: true
     file: source-code/ci/tasks/package.yml
+
+- name: deploy
+  plan:
+  - get: source-code
+    trigger: true
   - task: deploy
     privileged: true
     file: source-code/ci/tasks/deploy.yml
