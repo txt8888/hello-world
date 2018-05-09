@@ -3,4 +3,4 @@
 set -e -u -x
 
 cd source-code/
-./mvnw test
+bash ./mvnw test
