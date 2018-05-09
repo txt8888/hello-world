@@ -1,0 +1,22 @@
+resources:
+- name: source-code
+  type: git
+  check_every: 10s
+  source:
+    uri: https://github.com/txt8888/hello-world.git
+    branch: master
+
+jobs:
+- name: package
+  plan:
+  - get: source-code
+    trigger: true
+  - task: unit-test
+    privileged: true
+    file: source-code/ci/tasks/test.yml
+  - task: package
+    privileged: true
+    file: source-code/ci/tasks/package.yml
+  - task: deploy
+    privileged: true
+    file: source-code/ci/tasks/deploy.yml
