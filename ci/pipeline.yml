@@ -7,8 +7,7 @@ resources:
     branch: master
 
 jobs:
-- name: list
-  serial: true
+- name: list-files
   plan:
   - get: source-code
     trigger: true
@@ -16,23 +15,16 @@ jobs:
     file: source-code/ci/tasks/ls.yml
 
 - name: unit-test
-  serial: true
   plan:
   - task: unit-test
-    passed: list
     file: source-code/ci/tasks/test.yml
 
-
 - name: package
-  serial: true
   plan:
   - task: package
-    passed: unit-test
     file: source-code/ci/tasks/package.yml
 
 - name: deploy
-  serial: true
   plan:
   - task: deploy
-    passed: package
     file: source-code/ci/tasks/deploy.yml
