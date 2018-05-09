@@ -7,15 +7,8 @@ resources:
     branch: master
 
 jobs:
-- name: unit-test
-  plan:
-  - get: source-code
-    trigger: true
-  - task: unit-test
-    privileged: true
-    file: source-code/ci/tasks/test.yml
-
 - name: list
+  serial: true
   plan:
   - get: source-code
     trigger: true
@@ -23,18 +16,24 @@ jobs:
     privileged: true
     file: source-code/ci/tasks/ls.yml
 
-- name: package
+- name: unit-test
+  serial: true
   plan:
-  - get: source-code
-    trigger: true
+  - task: unit-test
+    privileged: true
+    file: source-code/ci/tasks/test.yml
+
+
+- name: package
+  serial: true
+  plan:
   - task: package
     privileged: true
     file: source-code/ci/tasks/package.yml
 
 - name: deploy
+  serial: true
   plan:
-  - get: source-code
-    trigger: true
   - task: deploy
     privileged: true
     file: source-code/ci/tasks/deploy.yml
