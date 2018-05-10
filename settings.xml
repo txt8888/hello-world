@@ -1,0 +1,20 @@
+<settings>
+    <proxies>
+        <proxy>
+            <id>raytheon</id>
+            <active>true</active>
+            <protocol>http</protocol>
+            <host>proxy.ext.ray.com</host>
+            <port>80</port>
+        </proxy>
+    </proxies>
+
+    <mirrors>
+        <mirror>
+            <id>central-no-ssl</id>
+            <name>Central without ssl</name>
+            <url>http://repo.maven.apache.org/maven2</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+    </mirrors>
+</settings>
