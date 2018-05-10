@@ -1,0 +1,14 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: maven
+    tag: latest
+
+inputs:
+- name: source-code
+
+run:
+  path: bash
+  args: [ source-code/ci/tasks/build-and-test.sh ]
