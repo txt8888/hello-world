@@ -1,8 +1,7 @@
 #!/bin/bash
 
-set -e -u -x
+set -xeu
 
 cd source-code/
-# bash ./mvnw test
-
+#bash ./mvnw test
 mvn test

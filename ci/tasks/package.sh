@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -e -u -x
+set -xeu
 
 cd source-code/
-./mvnw package
+# ./mvnw package
+mvn package
