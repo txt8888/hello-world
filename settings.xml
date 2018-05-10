@@ -11,8 +11,8 @@
 
     <mirrors>
         <mirror>
-            <id>rcentral</id>
-            <name>Raytheon Central</name>
+            <id>ray-maven</id>
+            <name>Raytheon Maven Central</name>
             <url>http://repo.maven.apache.org/maven2</url>
             <mirrorOf>central</mirrorOf>
         </mirror>
