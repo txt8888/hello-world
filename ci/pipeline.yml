@@ -56,5 +56,6 @@ jobs:
     file: source-code/ci/tasks/deploy.yml
   - put: pcf
     params:
-      manifest: source-code/manifests/manifest-development.yml
-      path: source-code/target/ray-app.jar
+      manifest: build-output/manifest-development.yml
+      path: build-output/ray-app.jar
+
