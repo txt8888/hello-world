@@ -1,8 +1,7 @@
 groups:
 - name: main
   jobs:
-  - unit-test
-  - package
+  - build-and-test
   - deploy
 
 resources:
@@ -24,7 +23,7 @@ resources:
     space: {{pws-space}}
 
 jobs:
-- name: unit-test
+- name: build-and-test
   serial: true
   public: true
   plan:
@@ -32,15 +31,6 @@ jobs:
     trigger: true
   - task: unit-test
     file: source-code/ci/tasks/test.yml
-
-- name: package
-  serial: true
-  public: true
-  plan:
-  - get: source-code
-    trigger: true
-    passed:
-    - unit-test
   - task: package
     file: source-code/ci/tasks/package.yml
 
@@ -51,7 +41,7 @@ jobs:
   - get: source-code
     trigger: true
     passed:
-    - package
+    - build-and-test
   - task: deploy
     file: source-code/ci/tasks/deploy.yml
   - put: pcf
