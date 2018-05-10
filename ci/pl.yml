@@ -1,0 +1,36 @@
+groups:
+- name: main
+  jobs:
+  - deploy
+
+resources:
+- name: source-code
+  type: git
+  check_every: 10s
+  source:
+    uri: ((app-repo-url))
+    branch: master
+
+- name: pcf
+  type: cf
+  source:
+    api: {{pws-api}}
+    organization: {{pws-organization}}
+    username: {{deploy-username}}
+    password: {{deploy-password}}
+    skip_cert_check: true
+    space: {{pws-space}}
+
+jobs:
+- name: deploy
+  serial: true
+  public: true
+  plan:
+  - get: source-code
+    trigger: true
+  - task: deploy
+    file: source-code/ci/tasks/deploy.yml
+  - put: pcf
+    params:
+      manifest: build-output/manifest-development.yml
+      path: build-output/ray-app.jar

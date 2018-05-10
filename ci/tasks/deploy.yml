@@ -9,6 +9,9 @@ image_resource:
 inputs:
 - name: source-code
 
+outputs:
+- name: build-output
+
 run:
   path: bash
   args: [ source-code/ci/tasks/deploy.sh ]
