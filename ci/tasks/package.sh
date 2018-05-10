@@ -4,4 +4,4 @@ set -xeu
 
 cd source-code/
 
-mvn --settings ./settings.xml package
+mvn --settings ./settings.xml -Dmaven.test.skip=true package

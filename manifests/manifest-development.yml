@@ -1,0 +1,8 @@
+---
+applications:
+- name: hello-world
+  memory: 1G
+  disk_quota: 512M
+  instances: 1
+  env:
+    SPRING_PROFILES_ACTIVE: cloud,development

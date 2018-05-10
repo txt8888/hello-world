@@ -11,8 +11,18 @@ resources:
   type: git
   check_every: 10s
   source:
-    uri: https://github.com/txt8888/hello-world.git
+    uri: ((app-repo-url))
     branch: master
+
+- name: pcf
+  type: cf
+  source:
+    api: {{pws-api}}
+    organization: {{pws-organization}}
+    username: {{deploy-username}}
+    password: {{deploy-password}}
+    skip_cert_check: true
+    space: {{pws-space}}
 
 jobs:
 - name: unit-test
@@ -45,3 +55,6 @@ jobs:
     - package
   - task: deploy
     file: source-code/ci/tasks/deploy.yml
+  - put: pcf
+    manifest: source-code/manifests/manifest-development.yml
+    path: source-code/target/ray-app.jar
