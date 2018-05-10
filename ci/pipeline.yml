@@ -5,7 +5,6 @@ groups:
   - package
   - deploy
 
-
 resources:
 - name: source-code
   type: git
@@ -56,5 +55,6 @@ jobs:
   - task: deploy
     file: source-code/ci/tasks/deploy.yml
   - put: pcf
-    manifest: source-code/manifests/manifest-development.yml
-    path: source-code/target/ray-app.jar
+    params:
+      manifest: source-code/manifests/manifest-development.yml
+      path: source-code/target/ray-app.jar

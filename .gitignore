@@ -23,3 +23,7 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+
+/error-logs.txt
+ci/credentials.yml
+
